@@ -5,7 +5,7 @@
 ;; Author: Robert Krahn <robert@kra.hn>
 ;; URL: http://github.com/rksm/l2l-emacs
 ;; Version: 0.1.0
-;; Package-Requires: ((websocket "20150330.2123"))
+;; Package-Requires: ((websocket "20150330.2123") (json "1.4"))
 
 (require 'json)
 (require 'websocket)
@@ -40,6 +40,21 @@
 
  (completing-read "test" '(a b) nil nil)
  (ido-completing-read "test" '(:a "b") nil nil)
+ )
+
+(comment
+ 
+ (provide 'l2l-sessions-mode)
+
+ (websocket-send-text test-ws-client register-msg)
+
+ (json-encode '(:action registerClient :data (:id 123 :user emacs-test)))
+
+
+ "lively-json"
+
+ (websocket-server-close test-ws-server)
+
  )
 
 ;;; -=-=-=-=-=-=-
@@ -88,22 +103,5 @@
 ;;   (kill-all-local-variables)
 ;;   (use-local-map l2l-sessions-mode-map))
 
-
-(comment
- 
- (provide 'l2l-sessions-mode)
-
- (websocket-send-text test-ws-client register-msg)
-
- (json-encode '(:action registerClient :data (:id 123 :user emacs-test)))
-
-
- "lively-json"
-
- (websocket-server-close test-ws-server)
-
- (message "fooo")
- (completing-read)
- )
 
 ;;; l2l.el ends here
